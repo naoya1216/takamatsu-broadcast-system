@@ -254,16 +254,15 @@ button{
 }
 @media (max-width:768px){
 
-    .title{
-
-        white-space: nowrap;
-        font-size:22px;
+.title{
+        font-size:36px;      /* 大きくする */
+        white-space:nowrap;  /* 1行表示 */
+        text-align:center;
+        line-height:1.2;
     }
 
     .title br{
-
         display:none;
-
     }
 
-}
+}    
