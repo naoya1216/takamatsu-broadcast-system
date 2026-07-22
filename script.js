@@ -104,7 +104,7 @@ function playCommand(){
 
 let text =
 document.getElementById("commandText").value;
-
+saveHistory("🚨 有事指令", text);
 speak(text);
 
 }
@@ -300,3 +300,62 @@ function clearUnpaid(){
 //==================================================
 
 window.speechSynthesis.cancel();
+//==============================
+// 放送履歴保存
+//==============================
+
+function saveHistory(type, text){
+
+    let history =
+    JSON.parse(localStorage.getItem("history")) || [];
+
+    history.unshift({
+
+        date: new Date().toLocaleString("ja-JP"),
+        type: type,
+        text: text
+
+    });
+
+    // 最大100件保存
+    if(history.length > 100){
+
+        history.pop();
+
+    }
+
+    localStorage.setItem(
+        "history",
+        JSON.stringify(history)
+    );
+
+}
+function copyHistory(index){
+
+let history =
+JSON.parse(localStorage.getItem("history")) || [];
+
+navigator.clipboard.writeText(
+history[index].text
+);
+
+alert("コピーしました");
+
+}
+
+
+function deleteHistory(index){
+
+let history =
+JSON.parse(localStorage.getItem("history")) || [];
+
+history.splice(index,1);
+
+localStorage.setItem(
+"history",
+JSON.stringify(history)
+);
+
+location.reload();
+
+}
