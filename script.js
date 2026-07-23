@@ -179,7 +179,9 @@ const command =
 
 今後、通行止めになる可能性があります。
 
-対象料金所は準備してください。`;
+対象料金所は準備してください。
+
+以上、高松道路管制センターがお知らせしました。`;
 
 
 document.getElementById("commandText").value = command;
