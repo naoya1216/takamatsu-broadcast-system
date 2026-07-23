@@ -30,35 +30,164 @@
 
 <label>流入料金所</label>
 
-<select id="toll">
+<div class="inline-group">
 
-<option>鳴門本線料金所</option>
-<option>坂出本線料金所</option>
+    <select id="toll">
+        <option>鳴門本線料金所</option>
+        <option>坂出本線料金所</option>
+    </select>
 
-</select>
+    <select id="lane">
+        <option>一般レーン</option>
+        <option>ETCレーン</option>
+    </select>
+
+</div>
 
 
 
 <label>車種</label>
 
-<input id="type" placeholder="例：普通車、大型車">
+<select id="type">
+
+    <option>不明</option>
+
+    <option>軽乗用</option>
+
+    <option>普通乗用</option>
+
+    <option>小型貨物</option>
+
+    <option>普通貨物</option>
+
+    <option>大型貨物</option>
+
+    <option>特大車</option>
+
+    <option>自動二輪</option>
+
+    <option>大型特殊</option>
+
+</select>
 
 
-<label>車名</label>
+<label>車名（空欄なら不明）</label>
 
-<input id="name">
-
-
-
-<label>車色</label>
-
-<input id="color">
+<input
+    type="text"
+    id="name"
+    placeholder="例：プリウス">
 
 
+<label>車色（空欄なら不明）</label>
 
-<label>車番（漢字）</label>
+<input
+    type="text"
+    id="color"
+    placeholder="例：白・黒・シルバー">
 
-<input id="kanji" placeholder="例：香川">
+
+
+<label>車籍</label>
+
+<select id="kanji">
+
+    <option>不明</option>
+
+    <option>徳島</option>
+    <option>香川</option>
+    <option>愛媛</option>
+    <option>高知</option>
+
+    <option>神戸</option>
+    <option>姫路</option>
+
+    <option>大阪</option>
+    <option>なにわ</option>
+    <option>和泉</option>
+
+    <option>京都</option>
+
+    <option>奈良</option>
+
+    <option>滋賀</option>
+
+    <option>三重</option>
+
+    <option>岡山</option>
+    <option>倉敷</option>
+
+    <option>広島</option>
+    <option>福山</option>
+
+    <option>山口</option>
+    <option>下関</option>
+
+    <option>鳥取</option>
+
+    <option>島根</option>
+
+    <option>愛知</option>
+    <option>豊橋</option>
+
+    <option>尾張小牧</option>
+    <option>一宮</option>
+
+    <option>岐阜</option>
+
+    <option>静岡</option>
+    <option>浜松</option>
+    <option>沼津</option>
+
+    <option>富士山</option>
+
+    <option>品川</option>
+    <option>世田谷</option>
+    <option>杉並</option>
+    <option>練馬</option>
+    <option>足立</option>
+    <option>板橋</option>
+    <option>江東</option>
+    <option>葛飾</option>
+
+    <option>横浜</option>
+    <option>川崎</option>
+    <option>湘南</option>
+    <option>相模</option>
+
+    <option>千葉</option>
+    <option>成田</option>
+    <option>市川</option>
+    <option>船橋</option>
+    <option>習志野</option>
+    <option>柏</option>
+
+    <option>大宮</option>
+    <option>川口</option>
+    <option>川越</option>
+    <option>所沢</option>
+    <option>越谷</option>
+
+    <option>水戸</option>
+    <option>つくば</option>
+    <option>土浦</option>
+
+    <option>宇都宮</option>
+    <option>那須</option>
+
+    <option>群馬</option>
+    <option>前橋</option>
+    <option>高崎</option>
+
+    <option>山梨</option>
+
+    <option>長野</option>
+    <option>松本</option>
+
+    <option>新潟</option>
+    <option>長岡</option>
+
+</select>
 
 
 
@@ -68,9 +197,68 @@
 
 
 
-<label>車番（和文通話）</label>
+<label>車番（ひらがな）</label>
 
-<input id="kana" placeholder="例：あ（あさひのあ）">
+<select id="kana">
+<option>不明</option>
+<option value="あさひのあ">あ（あさひのあ）</option>
+<option value="いろはのい">い（いろはのい）</option>
+<option value="うえののう">う（うえのう）</option>
+<option value="えいごのえ">え（えいごのえ）</option>
+<option value="おおさかのお">お（おおさかのお）</option>
+
+<option value="かわせのか">か（かわせのか）</option>
+<option value="きってのき">き（きってのき）</option>
+<option value="くらぶのく">く（くらぶのく）</option>
+<option value="けしきのけ">け（けしきのけ）</option>
+<option value="こどものこ">こ（こどものこ）</option>
+
+<option value="さくらのさ">さ（さくらのさ）</option>
+<option value="しんぶんのし">し（しんぶんのし）</option>
+<option value="すずめのす">す（すずめのす）</option>
+<option value="せかいのせ">せ（せかいのせ）</option>
+<option value="そろばんのそ">そ（そろばんのそ）</option>
+
+<option value="たばこのた">た（たばこのた）</option>
+<option value="ちどりのち">ち（ちどりのち）</option>
+<option value="つるかめのつ">つ（つるかめのつ）</option>
+<option value="てがみのて">て（てがみのて）</option>
+<option value="とうきょうのと">と（とうきょうのと）</option>
+
+<option value="なごやのな">な（なごやのな）</option>
+<option value="にっぽんのに">に（にっぽんのに）</option>
+<option value="ぬまづのぬ">ぬ（ぬまづのぬ）</option>
+<option value="ねずみのね">ね（ねずみのね）</option>
+<option value="のはらのの">の（のはらのの）</option>
+
+<option value="はがきのは">は（はがきのは）</option>
+<option value="ひこうきのひ">ひ（ひこうきのひ）</option>
+<option value="ふじさんのふ">ふ（ふじさんのふ）</option>
+<option value="へいわのへ">へ（へいわのへ）</option>
+<option value="ほけんのほ">ほ（ほけんのほ）</option>
+
+<option value="まっちのま">ま（まっちのま）</option>
+<option value="みかさのみ">み（みかさのみ）</option>
+<option value="むせんのむ">む（むせんのむ）</option>
+<option value="めいじのめ">め（めいじのめ）</option>
+<option value="もみじのも">も（もみじのも）</option>
+
+<option value="やまとのや">や（やまとのや）</option>
+<option value="ゆみやのゆ">ゆ（ゆみやのゆ）</option>
+<option value="よしののよ">よ（よしののよ）</option>
+
+<option value="らじおのら">ら（らじおのら）</option>
+<option value="りんごのり">り（りんごのり）</option>
+<option value="るすいのる">る（るすいのる）</option>
+<option value="れんげのれ">れ（れんげのれ）</option>
+<option value="ろーまのろ">ろ（ろーまのろ）</option>
+
+<option value="わらびのわ">わ（わらびのわ）</option>
+
+<option value="おわりのを">を（おわりのを）</option>
+<option value="おしまいのん">ん（おしまいのん）</option>
+
+</select>
 
 
 

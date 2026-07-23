@@ -24,6 +24,10 @@ function speak(text){
     text = text.replace(/SIC/g,"スマートインター");
     text = text.replace(/IC/g,"インターチェンジ");
     text = text.replace(/KP/g,"キロポスト");
+    text = text.replace(/車番/g,"しゃばん");
+    text = text.replace(/車名/g,"しゃめい");
+    text = text.replace(/車色/g,"しゃしょく");
+    text = text.replace(/行ってください/g,"おこなってください");
     //=====================================
 // IC・JCT・SIC 正式読み方
 //=====================================
@@ -224,6 +228,8 @@ document.getElementById("minute").value;
 
 let toll =
 document.getElementById("toll").value;
+let lane =
+document.getElementById("lane").value;
 
 let type =
 document.getElementById("type").value;
@@ -234,47 +240,111 @@ document.getElementById("name").value;
 let color =
 document.getElementById("color").value;
 
+if(name.trim()==""){
+
+    name="不明";
+
+}
+
+if(color.trim()==""){
+
+    color="不明";
+
+}
+
 let kanji =
 document.getElementById("kanji").value;
+let shakisomi;
+
+if(kanji === "不明"){
+
+    shakisomi = "不明";
+
+}else if(kanji === "なにわ"){
+
+    shakisomi = "なにわ、ひらがな3文字";
+
+}else{
+
+    shakisomi = kanji + "、漢字" + kanji.length + "文字";
+
+}
 
 let number1 =
-document.getElementById("number1").value;
+document.getElementById("number1").value || "";
+
 
 let kana =
 document.getElementById("kana").value;
 
 let number2 =
-document.getElementById("number2").value;
+document.getElementById("number2").value || "";
+
+if(number1.trim()==""){
+
+    number1="不明";
+
+}
+
+if(number2.trim()==""){
+
+    number2="不明";
+
+}
 
 let feature =
 document.getElementById("feature").value;
+let featureText = "";
+
+if(feature.trim() !== ""){
+
+    featureText =
+`特徴としましては${feature}です。`;
+
+}
 
 
+let vehicleInfo = "";
+
+// 車種（必ず表示）
+vehicleInfo += `車種${type}。\n\n`;
+
+// 車名（必ず表示）
+vehicleInfo += `車名${name}。\n\n`;
+
+// 車色（必ず表示）
+vehicleInfo += `車色${color}。\n\n`;
+
+// 車番（必ず表示）
+if(kanji === "不明"){
+    vehicleInfo += "車番不明。\n\n";
+}else{
+    vehicleInfo += `車番、${shakisomi}。\n\n`;
+}
+
+// 以下は判明している場合のみ
+if(number1 !== "不明"){
+    vehicleInfo += `数字の${number1}。\n\n`;
+}
+
+if(kana !== "不明"){
+    vehicleInfo += `${kana}。\n\n`;
+}
+
+if(number2 !== "不明"){
+    vehicleInfo += `${number2}。\n\n`;
+}
 
 let text =
 
 `道路管制センターから各料金所に未課金車両の流入についてお知らせします。
 
-先ほど${hour}時${minute}分ごろ、${toll}料金所を未課金車両が流入しました。
+先ほど${hour}時${minute}分ごろ、${toll}${lane}を未課金車両が流入しました。
 
-車種${type}。
+${vehicleInfo}${featureText}
+この車両が流出した際は、所定の処理を行ってください。
 
-車名${name}。
-
-車色${color}。
-
-車番、漢字${kanji}。
-
-数字の${number1}。
-
-${kana}。
-
-${number2}。
-
-特徴としましては${feature}です。
-
-この車両が流出した際は、所定の処理を行ってください。`;
-
+以上、道路管制センターがお知らせしました。`;
 
 document.getElementById("unpaidText").value=text;
 

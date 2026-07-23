@@ -265,4 +265,18 @@ button{
         display:none;
     }
 
+}
+/* 横並び入力 */
+.inline-group{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.inline-group select{
+
+    flex:1;
+
 }    
