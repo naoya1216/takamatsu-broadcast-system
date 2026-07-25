@@ -337,7 +337,7 @@ if(number2 !== "不明"){
 
 let text =
 
-`道路管制センターから各料金所に未課金車両の流入についてお知らせします。
+`高松道路管制センターから各料金所に未課金車両の流入についてお知らせします。
 
 先ほど${hour}時${minute}分ごろ、${toll}${lane}を未課金車両が流入しました。
 
@@ -357,7 +357,7 @@ function playUnpaidCommand(){
 
     let text =
     document.getElementById("unpaidText").value;
-
+    saveHistory("💴 未課金車両流入", text);
     speak(text);
 
 }
