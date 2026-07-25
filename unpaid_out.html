@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<title>未課金車両流出</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💳 未課金車両流出</h1>
+
+<label>流入料金所</label>
+
+<div class="inline-group">
+
+    <select id="inToll">
+        <option>鳴門本線料金所</option>
+        <option>坂出本線料金所</option>
+    </select>
+
+    <select id="inLane">
+        <option>一般レーン</option>
+        <option>ETCレーン</option>
+    </select>
+
+</div>
+
+<label>車名</label>
+
+<input
+type="text"
+id="carName"
+placeholder="例：トヨタ プリウス">
+
+<label>流出IC</label>
+
+<select id="exitIC">
+
+<optgroup label="高松自動車道">
+<option>鳴門IC</option>
+<option>板野IC</option>
+<option>引田IC</option>
+<option>白鳥大内IC</option>
+<option>津田東IC</option>
+<option>津田寒川IC</option>
+<option>志度IC</option>
+<option>さぬき三木IC</option>
+<option>高松東IC</option>
+<option>高松中央IC</option>
+<option>高松檀紙IC</option>
+<option>高松西IC</option>
+<option>府中湖SIC</option>
+<option>坂出JCT</option>
+<option>善通寺IC</option>
+<option>三豊鳥坂IC</option>
+<option>さぬき豊中IC</option>
+<option>観音寺SIC</option>
+<option>大野原IC</option>
+</optgroup>
+
+<optgroup label="高松自動車道 坂出支線">
+<option>坂出IC</option>
+</optgroup>
+
+<optgroup label="松山自動車道">
+<option>三島川之江IC</option>
+<option>土居IC</option>
+<option>新居浜IC</option>
+<option>いよ西条IC</option>
+<option>いよ小松IC</option>
+<option>川内IC</option>
+<option>松山IC</option>
+<option>伊予IC</option>
+<option>中山SIC</option>
+<option>内子五十崎IC</option>
+<option>大洲IC</option>
+<option>大洲北只IC</option>
+</optgroup>
+
+<optgroup label="高知自動車道">
+<option>新宮IC</option>
+<option>大豊IC</option>
+<option>南国IC</option>
+<option>高知IC</option>
+<option>伊野IC</option>
+<option>土佐IC</option>
+<option>須崎東IC</option>
+</optgroup>
+
+<optgroup label="徳島自動車道">
+<option>松茂SIC</option>
+<option>藍住IC</option>
+<option>土成IC</option>
+<option>脇町IC</option>
+<option>美馬IC</option>
+<option>吉野川SIC</option>
+<option>井川池田IC</option>
+</optgroup>
+
+<optgroup label="徳島南部自動車道">
+<option>徳島沖洲IC</option>
+</optgroup>
+
+</select>
+
+<label>流出方法</label>
+
+<select id="outType">
+
+    <option>通常</option>
+    <option>突破</option>
+
+</select>
+
+<button onclick="createOutflowCommand()">
+放送文作成
+</button>
+
+<textarea id="outText"></textarea>
+
+<button onclick="playOutflowCommand()">
+🔊 音声再生
+</button>
+
+<button onclick="stopOutflowCommand()">
+
+⏹ 停止
+
+</button>
+
+<button onclick="location.href='index.html'">
+
+🏠 メインメニューへ戻る
+
+</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

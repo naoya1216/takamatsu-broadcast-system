@@ -28,19 +28,26 @@ function speak(text){
     text = text.replace(/車名/g,"しゃめい");
     text = text.replace(/車色/g,"しゃしょく");
     text = text.replace(/行ってください/g,"おこなってください");
-    //=====================================
+    text = text.replace(/徳島沖洲IC/g,"とくしま おきのす インターチェンジ");
+    text = text.replace(/徳島沖洲インターチェンジ/g,"とくしま おきのす インターチェンジ")
+    text = text.replace(/三豊鳥坂IC/g,"みとよ とっさか インターチェンジ");
+    text = text.replace(/三豊鳥坂インターチェンジ/g,"みとよ とっさか インターチェンジ")
+//=====================================
 // IC・JCT・SIC 正式読み方
 //=====================================
 
 const readingMap = {
-// 路線名
-"高松自動車道":"たかまつじどうしゃどう",
-"高松自動車道坂出支線":"たかまつじどうしゃどう さかいでしせん",
-"松山自動車道":"まつやまじどうしゃどう",
-"高知自動車道":"こうちじどうしゃどう",
-"徳島自動車道":"とくしまじどうしゃどう",
-"徳島南部自動車道":"とくしまなんぶじどうしゃどう",
-    // 高松自動車道
+
+    // 路線
+    "高松自動車道":"たかまつじどうしゃどう",
+    "高松自動車道坂出支線":"たかまつじどうしゃどう さかいでしせん",
+    "松山自動車道":"まつやまじどうしゃどう",
+    "高知自動車道":"こうちじどうしゃどう",
+    "徳島自動車道":"とくしまじどうしゃどう",
+    "徳島南部自動車道":"とくしまなんぶじどうしゃどう",
+
+    // 高松道
+    "鳴門JCT":"なるとジャンクション",
     "鳴門IC":"なるとインターチェンジ",
     "板野IC":"いたのインターチェンジ",
     "引田IC":"ひけたインターチェンジ",
@@ -51,45 +58,44 @@ const readingMap = {
     "さぬき三木IC":"さぬきみきインターチェンジ",
     "高松東IC":"たかまつひがしインターチェンジ",
     "高松中央IC":"たかまつちゅうおうインターチェンジ",
+    "高松檀紙IC":"たかまつだんしインターチェンジ",
     "高松西IC":"たかまつにしインターチェンジ",
     "府中湖SIC":"ふちゅうこスマートインターチェンジ",
-    "善通寺IC":"ぜんつうじインターチェンジ",
-    "さぬき豊中IC":"さぬきとよなかインターチェンジ",
-    "大野原IC":"おおのはらインターチェンジ",
-    "観音寺SIC":"かんおんじスマートインターチェンジ",
-    "三豊鳥坂IC":"みとよとっさかインターチェンジ",
-
-    // 坂出支線
     "坂出JCT":"さかいでジャンクション",
     "坂出IC":"さかいでインターチェンジ",
-
-    // 松山自動車道
+    "善通寺IC":"ぜんつうじインターチェンジ",
+    "三豊鳥坂IC":"みとよとっさかインターチェンジ",
+    "さぬき豊中IC":"さぬきとよなかインターチェンジ",
+    "観音寺SIC":"かんおんじスマートインターチェンジ",
+    "大野原IC":"おおのはらインターチェンジ",
     "川之江JCT":"かわのえジャンクション",
+
+    // 松山道
     "三島川之江IC":"みしまかわのえインターチェンジ",
     "土居IC":"どいインターチェンジ",
-    "いよ西条IC":"いよさいじょうインターチェンジ",
     "新居浜IC":"にいはまインターチェンジ",
+    "いよ西条IC":"いよさいじょうインターチェンジ",
     "いよ小松IC":"いよこまつインターチェンジ",
     "いよ小松JCT":"いよこまつジャンクション",
     "東予丹原IC":"とうよたんばらインターチェンジ",
-    "中山SIC":"なかやまスマートインターチェンジ",
+    "川内IC":"かわうちインターチェンジ",
     "松山IC":"まつやまインターチェンジ",
     "伊予IC":"いよインターチェンジ",
+    "中山SIC":"なかやまスマートインターチェンジ",
+    "内子五十崎IC":"うちこいかざきインターチェンジ",
     "大洲IC":"おおずインターチェンジ",
-    "大洲北只IC":"おおずきたただインターチェンジ",
+    "大洲北只IC":"おおずきただインターチェンジ",
 
-    // 高知自動車道
+    // 高知道
     "新宮IC":"しんぐうインターチェンジ",
     "大豊IC":"おおとよインターチェンジ",
     "南国IC":"なんこくインターチェンジ",
     "高知IC":"こうちインターチェンジ",
     "伊野IC":"いのインターチェンジ",
-    "土佐IC":"とさインターチェンジ",
+    "土佐IC":"とさいんたーちぇんじ",
     "須崎東IC":"すさきひがしインターチェンジ",
 
-    // 徳島自動車道
-    "徳島IC":"とくしまインターチェンジ",
-    "鳴門JCT":"なるとジャンクション",
+    // 徳島道
     "松茂SIC":"まつしげスマートインターチェンジ",
     "藍住IC":"あいずみインターチェンジ",
     "土成IC":"どなりインターチェンジ",
@@ -97,18 +103,22 @@ const readingMap = {
     "美馬IC":"みまインターチェンジ",
     "吉野川SIC":"よしのがわスマートインターチェンジ",
     "井川池田IC":"いかわいけだインターチェンジ",
-    // 徳島南部自動車道
-"徳島沖洲IC":"とくしまおきのすインターチェンジ",
+
+    // 徳島南部道
+    "徳島沖洲IC":"とくしま おきのす インターチェンジ"
 };
 
-// 長い名称から置換（誤置換防止）
+// 長い名称から置換
 Object.keys(readingMap)
 .sort((a,b)=>b.length-a.length)
 .forEach(key=>{
-
     text = text.replaceAll(key, readingMap[key]);
-
 });
+
+// 最後にIC・JCT・SICが残っていたら補正
+text = text.replace(/JCT/g,"ジャンクション");
+text = text.replace(/SIC/g,"スマートインターチェンジ");
+text = text.replace(/IC/g,"インターチェンジ");
 
     // 少し間を空ける
     text = text.replace(/、/g,"、 ");
@@ -219,7 +229,6 @@ stopSpeech();
 
 function createUnpaidCommand(){
 
-
 let hour =
 document.getElementById("hour").value;
 
@@ -228,6 +237,7 @@ document.getElementById("minute").value;
 
 let toll =
 document.getElementById("toll").value;
+
 let lane =
 document.getElementById("lane").value;
 
@@ -254,25 +264,25 @@ if(color.trim()==""){
 
 let kanji =
 document.getElementById("kanji").value;
+
 let shakisomi;
 
-if(kanji === "不明"){
+if(kanji==="不明"){
 
-    shakisomi = "不明";
+    shakisomi="不明";
 
-}else if(kanji === "なにわ"){
+}else if(kanji==="なにわ"){
 
-    shakisomi = "なにわ、ひらがな3文字";
+    shakisomi="なにわ、ひらがな3文字";
 
 }else{
 
-    shakisomi = kanji + "、漢字" + kanji.length + "文字";
+    shakisomi=kanji+"、漢字"+kanji.length+"文字";
 
 }
 
 let number1 =
 document.getElementById("number1").value || "";
-
 
 let kana =
 document.getElementById("kana").value;
@@ -280,59 +290,56 @@ document.getElementById("kana").value;
 let number2 =
 document.getElementById("number2").value || "";
 
-if(number1.trim()==""){
-
-    number1="不明";
-
-}
-
-if(number2.trim()==""){
-
-    number2="不明";
-
-}
+// 空欄は不明
+if(number1.trim()=="") number1="不明";
+if(number2.trim()=="") number2="不明";
 
 let feature =
 document.getElementById("feature").value;
-let featureText = "";
 
-if(feature.trim() !== ""){
+let featureText="";
 
-    featureText =
-`特徴としましては${feature}です。`;
+if(feature.trim()!=""){
+
+    featureText=`特徴としましては${feature}です。\n\n`;
 
 }
 
+let vehicleInfo="";
 
-let vehicleInfo = "";
-
-// 車種（必ず表示）
+// 必ず表示
 vehicleInfo += `車種${type}。\n\n`;
-
-// 車名（必ず表示）
 vehicleInfo += `車名${name}。\n\n`;
-
-// 車色（必ず表示）
 vehicleInfo += `車色${color}。\n\n`;
 
-// 車番（必ず表示）
-if(kanji === "不明"){
+// 車番
+if(kanji==="不明"){
+
     vehicleInfo += "車番不明。\n\n";
+
 }else{
+
     vehicleInfo += `車番、${shakisomi}。\n\n`;
+
 }
 
-// 以下は判明している場合のみ
-if(number1 !== "不明"){
+// 判明しているものだけ追加
+if(number1!=="不明"){
+
     vehicleInfo += `数字の${number1}。\n\n`;
+
 }
 
-if(kana !== "不明"){
+if(kana!=="不明"){
+
     vehicleInfo += `${kana}。\n\n`;
+
 }
 
-if(number2 !== "不明"){
+if(number2!=="不明"){
+
     vehicleInfo += `${number2}。\n\n`;
+
 }
 
 let text =
@@ -341,8 +348,7 @@ let text =
 
 先ほど${hour}時${minute}分ごろ、${toll}${lane}を未課金車両が流入しました。
 
-${vehicleInfo}${featureText}
-この車両が流出した際は、所定の処理を行ってください。
+${vehicleInfo}${featureText}この車両が流出した際は、所定の処理を行ってください。
 
 以上、道路管制センターがお知らせしました。`;
 
@@ -353,23 +359,104 @@ document.getElementById("unpaidText").value=text;
 // 未課金車両流入（続き）
 //==================================================
 
-function playUnpaidCommand(){
+ function playUnpaidCommand(){
 
     let text =
     document.getElementById("unpaidText").value;
+
     saveHistory("💴 未課金車両流入", text);
+
+    // 読み上げ用テキスト
+    let speechText = text;
+
+    // 「数字の555」→「数字のご、ご、ご」
+    speechText = speechText.replace(
+        /数字の([0-9]+)/g,
+        function(match, num){
+            return "数字の" + readNumber(num);
+        }
+    );
+
+    // 後半数字（1～4桁）を変換
+speechText = speechText.replace(
+    /(^|\n)([0-9]{1,4})(?=\s|。|$)/gm,
+    function(match, p1, num){
+        return p1 + readNumber(num);
+    }
+);
+
+    speak(speechText);
+
+}
+function readNumber(number){
+
+    const map = {
+        "0":"ゼロ",
+        "1":"いち",
+        "2":"に",
+        "3":"さん",
+        "4":"よん",
+        "5":"ご",
+        "6":"ろく",
+        "7":"なな",
+        "8":"はち",
+        "9":"きゅう"
+    };
+
+    return String(number)
+        .split("")
+        .map(n => map[n])
+        .join("、");
+}
+//==================================================
+// 未課金車両流出
+//==================================================
+
+function createOutflowCommand(){
+
+    let inToll = document.getElementById("inToll").value;
+    let inLane = document.getElementById("inLane").value;
+
+    let name = document.getElementById("carName").value.trim();
+
+    if(name==""){
+        name="不明車両";
+    }
+
+    let outToll = document.getElementById("exitIC").value;
+    let method = document.getElementById("outType").value;
+
+    let text =
+`高松道路管制センターから各料金所に未課金車両の流出についてお知らせします。
+
+先ほど一斉の、${inToll}、${inLane}を未課金で流入した、
+
+車名、${name}は、
+
+${outToll}を${method}で流出しました。
+
+よってこの件は解除とします。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    document.getElementById("outText").value = text;
+
+}
+function playOutflowCommand(){
+
+    let text =
+    document.getElementById("outText").value;
+
+    saveHistory("💳 未課金車両流出", text);
+
     speak(text);
 
 }
-
-
-function stopUnpaidCommand(){
+function stopOutflowCommand(){
 
     stopSpeech();
 
 }
-
-
 
 //==================================================
 // 車両手配（ひな形）
