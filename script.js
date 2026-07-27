@@ -19,6 +19,7 @@ function speak(text){
     }
 
     // 読み方補正
+    text = text.replace(/IC間通行止め/g,"インター間通行止め");
     text = text.replace(/料金所/g,"りょうきんしょ");
     text = text.replace(/JCT/g,"ジャンクション");
     text = text.replace(/SIC/g,"スマートインター");
@@ -221,6 +222,72 @@ stopSpeech();
 
 }
 
+//==================================================
+// 通行止め実施予定
+//==================================================
+
+function createClosurePlanCommand(){
+
+    let road =
+    document.getElementById("road").value;
+
+    let direction =
+    document.getElementById("direction").value;
+
+    let fromIC =
+    document.getElementById("fromIC").value;
+
+    let toIC =
+    document.getElementById("toIC").value;
+
+    let hour =
+    document.getElementById("hour").value;
+
+    let minute =
+    document.getElementById("minute").value;
+
+    let reason =
+    document.getElementById("reason").value;
+
+    let text =
+`高松道路管制センターから各事務所及び各関係機関に、通行止め実施予定についてお知らせします。
+
+この後、${hour}時${minute}分をもって、
+
+${road}、
+
+${direction}、
+
+${fromIC}から${toIC}間、
+
+${reason}によるIC間通行止めが、実施予定となりました。
+
+各料金所、了解であれば、了解の合図を送ってください。
+
+なお、乗り継ぎ対象料金所は証明書の発行を願います。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    document.getElementById("closurePlanText").value = text;
+
+}
+
+function playClosurePlanCommand(){
+
+    let text =
+    document.getElementById("closurePlanText").value;
+
+    saveHistory("🚧 通行止め実施予定", text);
+
+    speak(text);
+
+}
+
+function stopClosurePlanCommand(){
+
+    stopSpeech();
+
+}
 
 
 //==================================================
@@ -423,17 +490,84 @@ function createOutflowCommand(){
         name="不明車両";
     }
 
-    let outToll = document.getElementById("exitIC").value;
-    let method = document.getElementById("outType").value;
+    //=========================
+    // 車番
+    //=========================
+
+    let kanji = document.getElementById("kanji").value;
+    let shakisomi;
+
+    if(kanji === "不明"){
+
+        shakisomi = "不明";
+
+    }else if(kanji === "なにわ"){
+
+        shakisomi = "なにわ、ひらがな3文字";
+
+    }else{
+
+        shakisomi = kanji + "、漢字" + kanji.length + "文字";
+
+    }
+
+    let number1 = document.getElementById("number1").value || "";
+    let kana = document.getElementById("kana").value;
+    let number2 = document.getElementById("number2").value || "";
+
+    //=========================
+    // 流出情報
+    //=========================
+
+    let exitIC = document.getElementById("exitIC").value;
+    let outType = document.getElementById("outType").value;
+
+    //=========================
+    // 車番文章
+    //=========================
+
+    let plateInfo = "";
+
+    if(kanji === "不明"){
+
+        plateInfo += "車番不明。\n\n";
+
+    }else{
+
+        plateInfo += `車番、${shakisomi}。\n\n`;
+
+    }
+
+    if(number1 !== ""){
+
+        plateInfo += `数字の${number1}。\n\n`;
+
+    }
+
+    if(kana !== "不明"){
+
+        plateInfo += `${kana}。\n\n`;
+
+    }
+
+    if(number2 !== ""){
+
+        plateInfo += `${number2}。\n\n`;
+
+    }
+
+    //=========================
+    // 放送文
+    //=========================
 
     let text =
 `高松道路管制センターから各料金所に未課金車両の流出についてお知らせします。
 
-先ほど一斉の、${inToll}、${inLane}を未課金で流入した、
+先ほど一斉の${inToll}${inLane}を未課金で流入した、
 
-車名、${name}は、
+車名${name}。
 
-${outToll}を${method}で流出しました。
+${plateInfo}この車両は、${exitIC}を${outType}で流出しました。
 
 よってこの件は解除とします。
 
@@ -442,19 +576,54 @@ ${outToll}を${method}で流出しました。
     document.getElementById("outText").value = text;
 
 }
+
 function playOutflowCommand(){
 
-    let text =
-    document.getElementById("outText").value;
+    let text = document.getElementById("outText").value;
 
     saveHistory("💳 未課金車両流出", text);
 
-    speak(text);
+    // 読み上げ用
+    let speechText = text;
+
+    // 「数字の555」→「数字のご、ご、ご」
+    speechText = speechText.replace(
+        /数字の([0-9]+)/g,
+        function(match, num){
+            return "数字の" + readNumber(num);
+        }
+    );
+
+    // 後半4桁「1234。」→「いち、に、さん、よん」
+    speechText = speechText.replace(
+        /\n([0-9]{1,4})\。\n/g,
+        function(match, num){
+            return "\n" + readNumber(num) + "。\n";
+        }
+    );
+
+    speak(speechText);
 
 }
-function stopOutflowCommand(){
+function readNumber(number){
 
-    stopSpeech();
+    const map = {
+        "0":"ゼロ",
+        "1":"いち",
+        "2":"に",
+        "3":"さん",
+        "4":"よん",
+        "5":"ご",
+        "6":"ろく",
+        "7":"なな",
+        "8":"はち",
+        "9":"きゅう"
+    };
+
+    return String(number)
+        .split("")
+        .map(n => map[n])
+        .join("、");
 
 }
 
