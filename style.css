@@ -285,12 +285,10 @@ button{
 ========================== */
 @media (max-width:768px){
 
-    h1.title{
+    .title{
         font-size:16px !important;
-        line-height:1.2;
-        margin-bottom:15px;
-        text-align:center;
-        white-space:normal;
+        white-space:nowrap;
+        letter-spacing:-1px;
     }
 
 }
