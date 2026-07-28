@@ -223,10 +223,13 @@ stopSpeech();
 }
 
 //==================================================
-// 通行止め実施予定
+// 通行止め
 //==================================================
 
-function createClosurePlanCommand(){
+function createClosureCommand(){
+
+    let type =
+    document.getElementById("closureType").value;
 
     let road =
     document.getElementById("road").value;
@@ -249,8 +252,17 @@ function createClosurePlanCommand(){
     let reason =
     document.getElementById("reason").value;
 
-    let text =
-`高松道路管制センターから各事務所及び各関係機関に、通行止め実施予定についてお知らせします。
+    let text = "";
+
+    switch(type){
+
+        //==========================
+        // 通行止め実施予定
+        //==========================
+        case "plan":
+
+            text =
+`高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め実施予定についてお知らせします。
 
 この後、${hour}時${minute}分をもって、
 
@@ -268,22 +280,126 @@ ${reason}によるIC間通行止めが、実施予定となりました。
 
 以上、高松道路管制センターがお知らせしました。`;
 
-    document.getElementById("closurePlanText").value = text;
+        break;
+
+
+        //==========================
+        // 通行止め実施
+        //==========================
+        case "start":
+
+            text =
+`高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め実施についてお知らせします。
+
+ただ今、${hour}時${minute}分、
+
+${road}、
+
+${direction}、
+
+${fromIC}から${toIC}間、
+
+${reason}によるIC間通行止めが実施となりました。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+        break;
+
+
+        //==========================
+        // 通行止め解除予定
+        //==========================
+        case "releasePlan":
+
+            text =
+`高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め解除予定についてお知らせします。
+
+この後、${hour}時${minute}分をもって、
+
+${road}、
+
+${direction}、
+
+${fromIC}から${toIC}間、
+
+${reason}によるIC間通行止めを解除予定です。
+
+各料金所、了解であれば、了解の合図を送ってください。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+        break;
+
+
+        //==========================
+        // 通行止め解除
+        //==========================
+        case "release":
+
+            text =
+`高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め解除についてお知らせします。
+
+${hour}時${minute}分、
+
+${road}、
+
+${direction}、
+
+${fromIC}から${toIC}間の、
+
+${reason}によるIC間通行止めを解除しました。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+        break;
+
+    }
+
+    document.getElementById("closureText").value = text;
 
 }
 
-function playClosurePlanCommand(){
+//==================================================
+// 音声再生
+//==================================================
+
+function playClosureCommand(){
 
     let text =
-    document.getElementById("closurePlanText").value;
+    document.getElementById("closureText").value;
 
-    saveHistory("🚧 通行止め実施予定", text);
+    let type =
+    document.getElementById("closureType").value;
+
+    let title = "";
+
+    switch(type){
+
+        case "plan":
+            title = "🚧 通行止め実施予定";
+        break;
+
+        case "start":
+            title = "🚧 通行止め実施";
+        break;
+
+        case "releasePlan":
+            title = "🚧 通行止め解除予定";
+        break;
+
+        case "release":
+            title = "🚧 通行止め解除";
+        break;
+
+    }
+
+    saveHistory(title, text);
 
     speak(text);
 
 }
 
-function stopClosurePlanCommand(){
+function stopClosureCommand(){
 
     stopSpeech();
 

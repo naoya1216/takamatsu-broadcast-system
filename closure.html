@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>通行止め実施予定</title>
+<title>通行止め</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,7 +14,21 @@
 
 <div class="container">
 
-<h1>🚧 通行止め実施予定</h1>
+<h1>🚧 通行止め</h1>
+
+<label>種別</label>
+
+<select id="closureType">
+
+<option value="plan">通行止め実施予定</option>
+
+<option value="start">通行止め実施</option>
+
+<option value="releasePlan">通行止め解除予定</option>
+
+<option value="release">通行止め解除</option>
+
+</select>
 
 <label>路線</label>
 
@@ -245,24 +259,19 @@ max="59">
 
 </select>
 
-<button onclick="createClosurePlanCommand()">
-
+<button onclick="createClosureCommand()">
 放送文作成
-
 </button>
 
-<textarea id="closurePlanText"></textarea>
+<textarea id="closureText"></textarea>
 
-<button onclick="playClosurePlanCommand()">
 
+<button onclick="playClosureCommand()">
 🔊 音声再生
-
 </button>
 
-<button onclick="stopClosurePlanCommand()">
-
+<button onclick="stopClosureCommand()">
 ⏹ 停止
-
 </button>
 
 <button onclick="location.href='index.html'">
