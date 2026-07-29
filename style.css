@@ -232,13 +232,13 @@ button:hover{
 
     /* メニュー画面（スマホ） */
     .tabs{
-        gap:12px;          /* 6px → 12px */
-        margin-top:20px;   /* 15px → 20px */
+        gap:20px;          /* 12px → 20px */
+        margin-top:25px;   /* 少し余裕を持たせる */
     }
 
     .tabs button{
         font-size:24px;
-        height:60px;
+        height:70px;       /* 60px → 70px */
         margin-top:0;
     }
 
@@ -246,7 +246,7 @@ button:hover{
         width:100%;
         max-width:420px;
         height:auto;
-        margin:0 auto 20px auto;
+        margin:0 auto 30px auto;   /* ロゴ下の余白も少し増やす */
     }
 
 }
