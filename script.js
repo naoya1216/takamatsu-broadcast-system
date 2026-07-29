@@ -4,7 +4,6 @@
 //==================================================
 
 
-
 //==================================================
 // 共通 音声読み上げ
 //==================================================
@@ -33,6 +32,8 @@ function speak(text){
     text = text.replace(/徳島沖洲インターチェンジ/g,"とくしま おきのす インターチェンジ")
     text = text.replace(/三豊鳥坂IC/g,"みとよ とっさか インターチェンジ");
     text = text.replace(/三豊鳥坂インターチェンジ/g,"みとよ とっさか インターチェンジ")
+    // ○時00分 → ○時ちょうど
+    text = text.replace(/(\d{1,2})時0?0分/g, "$1時ちょうど");
 //=====================================
 // IC・JCT・SIC 正式読み方
 //=====================================
@@ -291,7 +292,7 @@ ${reason}によるIC間通行止めが、実施予定となりました。
             text =
 `高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め実施についてお知らせします。
 
-ただ今、${hour}時${minute}分、
+${hour}時${minute}分 をもって
 
 ${road}、
 
@@ -339,7 +340,7 @@ ${reason}によるIC間通行止めを解除予定です。
             text =
 `高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め解除についてお知らせします。
 
-${hour}時${minute}分、
+${hour}時${minute}分 をもって
 
 ${road}、
 
@@ -404,8 +405,156 @@ function stopClosureCommand(){
     stopSpeech();
 
 }
+//==================================================
+// 了解の合図依頼
+//==================================================
 
+function playAcknowledgement(){
 
+    const text =
+"各料金所、了解であれば、了解の合図を送ってください。";
+
+    speak(text);
+
+}
+//==================================================
+// 了解の合図受領
+//==================================================
+
+function playAcknowledged(){
+
+    const text =
+`了解の合図が取れました。
+
+以上、道路管制センターがお知らせしました。`;
+
+    speak(text);
+
+}
+
+function createNightCommand(){
+
+    let type = document.getElementById("nightType").value;
+
+    let hour = document.getElementById("hour").value;
+    let minute = document.getElementById("minute").value;
+
+    let sections = [];
+
+    for(let i=1; i<=3; i++){
+
+        let road = document.getElementById("road"+i).value;
+
+        if(road==="") continue;
+
+        let direction = document.getElementById("direction"+i).value;
+        let fromIC = document.getElementById("fromIC"+i).value;
+        let toIC = document.getElementById("toIC"+i).value;
+
+        sections.push(
+`${road}、
+${direction}、
+${fromIC}から${toIC}間`
+        );
+
+    }
+
+    // 区間を連結
+    let sectionText = sections.join("、\n及び、\n");
+
+    let text="";
+
+    switch(type){
+
+        //==============================
+        // 実施予定
+        //==============================
+        case "plan":
+
+text =
+`高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め実施予定についてお知らせします。
+
+この後、${hour}時${minute}分をもって、
+
+${sectionText}
+夜間工事によるIC間通行止めが、実施予定となりました。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+        break;
+
+        //==============================
+        // 実施
+        //==============================
+        case "start":
+
+text =
+`高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め実施についてお知らせします。
+
+${hour}時${minute}分をもって、
+
+${sectionText}
+夜間工事によるIC間通行止めが、実施となりました。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+        break;
+
+        //==============================
+        // 解除予定
+        //==============================
+        case "releasePlan":
+
+text =
+`高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め解除予定についてお知らせします。
+
+この後、${hour}時${minute}分をもって、
+
+${sectionText}
+夜間工事によるIC間通行止めが、解除予定となりました。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+        break;
+
+        //==============================
+        // 解除
+        //==============================
+        case "release":
+
+text =
+`高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め解除についてお知らせします。
+
+${hour}時${minute}分をもって、
+
+${sectionText}
+夜間工事によるIC間通行止めが解除となりました。
+
+以上、高松道路管制センターがお知らせしました。`;
+
+        break;
+
+    }
+
+    document.getElementById("nightText").value = text;
+
+}
+function playNightCommand(){
+
+    let text =
+    document.getElementById("nightText").value;
+
+    saveHistory("🌙 夜間工事通行止め", text);
+
+    speak(text);
+
+}
+
+function stopNightCommand(){
+
+    stopSpeech();
+
+}
 //==================================================
 // 未課金車両流入
 //==================================================

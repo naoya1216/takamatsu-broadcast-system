@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🌙 夜間工事通行止め</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌙 夜間工事通行止め</h1>
+
+<label>種別</label>
+
+<select id="nightType">
+
+    <option value="plan">実施予定</option>
+    <option value="start">実施</option>
+    <option value="releasePlan">解除予定</option>
+    <option value="release">解除</option>
+
+</select>
+
+<label>時刻</label>
+
+<div class="inline-group">
+
+<input id="hour" type="number" min="0" max="23" placeholder="時">
+
+<input id="minute" type="number" min="0" max="59" placeholder="分">
+
+</div>
+
+<hr>
+
+<h2>区間①</h2>
+
+<label>路線</label>
+
+<select id="road1">
+
+<option>高松自動車道</option>
+<option>高松自動車道坂出支線</option>
+<option>松山自動車道</option>
+<option>高知自動車道</option>
+<option>徳島自動車道</option>
+<option>徳島南部自動車道</option>
+
+</select>
+
+<label>方向</label>
+
+<select id="direction1">
+
+<option>上り線</option>
+<option>下り線</option>
+<option>上下線</option>
+
+</select>
+
+<label>起点IC</label>
+
+<select id="fromIC1">
+
+<optgroup label="高松・坂出支線">
+
+<option>鳴門JCT</option>
+<option>鳴門IC</option>
+<option>板野IC</option>
+<option>引田IC</option>
+<option>白鳥大内IC</option>
+<option>津田東IC</option>
+<option>津田寒川IC</option>
+<option>志度IC</option>
+<option>さぬき三木IC</option>
+<option>高松東IC</option>
+<option>高松中央IC</option>
+<option>高松檀紙IC</option>
+<option>高松西IC</option>
+<option>府中湖SIC</option>
+<option>坂出JCT</option>
+<option>坂出IC</option>
+<option>善通寺IC</option>
+<option>三豊鳥坂IC</option>
+<option>さぬき豊中IC</option>
+<option>観音寺SIC</option>
+<option>大野原IC</option>
+<option>川之江JCT</option>
+
+</optgroup>
+
+
+<optgroup label="松山自動車道">
+
+<option>川之江JCT</option>
+<option>三島川之江IC</option>
+<option>土居IC</option>
+<option>新居浜IC</option>
+<option>いよ西条IC</option>
+<option>いよ小松JCT</option>
+<option>川内IC</option>
+<option>松山IC</option>
+<option>伊予IC</option>
+<option>中山SIC</option>
+<option>内子五十崎IC</option>
+<option>大洲IC</option>
+<option>大洲北只IC</option>
+
+</optgroup>
+
+<optgroup label="今治小松自動車道">
+<option>いよ小松JCT</option>
+<option>いよ小松IC</option>
+<option>東予丹原IC</option>
+<option>今治湯ノ浦IC</option>
+
+</optgroup>
+
+<optgroup label="高知自動車道">
+
+<option>川之江JCT</option>
+<option>新宮IC</option>
+<option>大豊IC</option>
+<option>南国IC</option>
+<option>高知IC</option>
+<option>伊野IC</option>
+<option>土佐IC</option>
+<option>須崎東IC</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島自動車道">
+
+<option>鳴門JCT</option>
+<option>松茂SIC</option>
+<option>徳島JCT</option>
+<option>藍住IC</option>
+<option>土成IC</option>
+<option>脇町IC</option>
+<option>美馬IC</option>
+<option>吉野川SIC</option>
+<option>井川池田IC</option>
+<option>川之江東JCT</option>
+
+</optgroup>
+
+<optgroup label="徳島南部自動車道">
+
+<option>徳島沖洲IC</option>
+
+</optgroup>
+
+</select>
+
+<label>終点IC</label>
+
+<select id="toIC1">
+<optgroup label="高松・坂出支線">
+
+<option>鳴門JCT</option>
+<option>鳴門IC</option>
+<option>板野IC</option>
+<option>引田IC</option>
+<option>白鳥大内IC</option>
+<option>津田東IC</option>
+<option>津田寒川IC</option>
+<option>志度IC</option>
+<option>さぬき三木IC</option>
+<option>高松東IC</option>
+<option>高松中央IC</option>
+<option>高松檀紙IC</option>
+<option>高松西IC</option>
+<option>府中湖SIC</option>
+<option>坂出JCT</option>
+<option>坂出IC</option>
+<option>善通寺IC</option>
+<option>三豊鳥坂IC</option>
+<option>さぬき豊中IC</option>
+<option>観音寺SIC</option>
+<option>大野原IC</option>
+<option>川之江JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="松山自動車道">
+
+<option>川之江JCT</option>
+<option>三島川之江IC</option>
+<option>土居IC</option>
+<option>新居浜IC</option>
+<option>いよ西条IC</option>
+<option>いよ小松JCT</option>
+<option>川内IC</option>
+<option>松山IC</option>
+<option>伊予IC</option>
+<option>中山SIC</option>
+<option>内子五十崎IC</option>
+<option>大洲IC</option>
+<option>大洲北只IC</option>
+
+</optgroup>
+
+<optgroup label="今治小松自動車道">
+<option>いよ小松JCT</option>
+<option>いよ小松IC</option>
+<option>東予丹原IC</option>
+<option>今治湯ノ浦IC</option>
+
+</optgroup>
+
+<optgroup label="高知自動車道">
+
+<option>川之江JCT</option>
+<option>新宮IC</option>
+<option>大豊IC</option>
+<option>南国IC</option>
+<option>高知IC</option>
+<option>伊野IC</option>
+<option>土佐IC</option>
+<option>須崎東IC</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島自動車道">
+
+<option>鳴門JCT</option>
+<option>松茂SIC</option>
+<option>徳島JCT</option>
+<option>藍住IC</option>
+<option>土成IC</option>
+<option>脇町IC</option>
+<option>美馬IC</option>
+<option>吉野川SIC</option>
+<option>井川池田IC</option>
+<option>川之江東JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島南部自動車道">
+
+<option>徳島沖洲IC</option>
+
+</optgroup>
+
+</select>
+
+<hr>
+
+<h2>区間②（必要な場合のみ入力）</h2>
+
+<label>路線</label>
+
+<select id="road2">
+
+<option value="">未使用</option>
+
+<option>高松自動車道</option>
+<option>高松自動車道坂出支線</option>
+<option>松山自動車道</option>
+<option>高知自動車道</option>
+<option>徳島自動車道</option>
+<option>徳島南部自動車道</option>
+
+</select>
+
+<label>方向</label>
+
+<select id="direction2">
+
+<option>上り線</option>
+<option>下り線</option>
+<option>上下線</option>
+
+</select>
+
+<label>起点IC</label>
+
+<select id="fromIC2">
+<optgroup label="高松・坂出支線">
+
+<option>鳴門JCT</option>
+<option>鳴門IC</option>
+<option>板野IC</option>
+<option>引田IC</option>
+<option>白鳥大内IC</option>
+<option>津田東IC</option>
+<option>津田寒川IC</option>
+<option>志度IC</option>
+<option>さぬき三木IC</option>
+<option>高松東IC</option>
+<option>高松中央IC</option>
+<option>高松檀紙IC</option>
+<option>高松西IC</option>
+<option>府中湖SIC</option>
+<option>坂出JCT</option>
+<option>坂出IC</option>
+<option>善通寺IC</option>
+<option>三豊鳥坂IC</option>
+<option>さぬき豊中IC</option>
+<option>観音寺SIC</option>
+<option>大野原IC</option>
+<option>川之江JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="松山自動車道">
+
+<option>川之江JCT</option>
+<option>三島川之江IC</option>
+<option>土居IC</option>
+<option>新居浜IC</option>
+<option>いよ西条IC</option>
+<option>いよ小松JCT</option>
+<option>川内IC</option>
+<option>松山IC</option>
+<option>伊予IC</option>
+<option>中山SIC</option>
+<option>内子五十崎IC</option>
+<option>大洲IC</option>
+<option>大洲北只IC</option>
+
+</optgroup>
+
+<optgroup label="今治小松自動車道">
+<option>いよ小松JCT</option>
+<option>いよ小松IC</option>
+<option>東予丹原IC</option>
+<option>今治湯ノ浦IC</option>
+
+</optgroup>
+
+<optgroup label="高知自動車道">
+
+<option>川之江JCT</option>
+<option>新宮IC</option>
+<option>大豊IC</option>
+<option>南国IC</option>
+<option>高知IC</option>
+<option>伊野IC</option>
+<option>土佐IC</option>
+<option>須崎東IC</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島自動車道">
+
+<option>鳴門JCT</option>
+<option>松茂SIC</option>
+<option>徳島JCT</option>
+<option>藍住IC</option>
+<option>土成IC</option>
+<option>脇町IC</option>
+<option>美馬IC</option>
+<option>吉野川SIC</option>
+<option>井川池田IC</option>
+<option>川之江東JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島南部自動車道">
+
+<option>徳島沖洲IC</option>
+
+</optgroup>
+
+</select>
+
+<label>終点IC</label>
+
+<select id="toIC2">
+<optgroup label="高松・坂出支線">
+
+<option>鳴門JCT</option>
+<option>鳴門IC</option>
+<option>板野IC</option>
+<option>引田IC</option>
+<option>白鳥大内IC</option>
+<option>津田東IC</option>
+<option>津田寒川IC</option>
+<option>志度IC</option>
+<option>さぬき三木IC</option>
+<option>高松東IC</option>
+<option>高松中央IC</option>
+<option>高松檀紙IC</option>
+<option>高松西IC</option>
+<option>府中湖SIC</option>
+<option>坂出JCT</option>
+<option>坂出IC</option>
+<option>善通寺IC</option>
+<option>三豊鳥坂IC</option>
+<option>さぬき豊中IC</option>
+<option>観音寺SIC</option>
+<option>大野原IC</option>
+<option>川之江JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="松山自動車道">
+
+<option>川之江JCT</option>
+<option>三島川之江IC</option>
+<option>土居IC</option>
+<option>新居浜IC</option>
+<option>いよ西条IC</option>
+<option>いよ小松JCT</option>
+<option>川内IC</option>
+<option>松山IC</option>
+<option>伊予IC</option>
+<option>中山SIC</option>
+<option>内子五十崎IC</option>
+<option>大洲IC</option>
+<option>大洲北只IC</option>
+
+</optgroup>
+
+<optgroup label="今治小松自動車道">
+<option>いよ小松JCT</option>
+<option>いよ小松IC</option>
+<option>東予丹原IC</option>
+<option>今治湯ノ浦IC</option>
+
+</optgroup>
+
+<optgroup label="高知自動車道">
+
+<option>川之江JCT</option>
+<option>新宮IC</option>
+<option>大豊IC</option>
+<option>南国IC</option>
+<option>高知IC</option>
+<option>伊野IC</option>
+<option>土佐IC</option>
+<option>須崎東IC</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島自動車道">
+
+<option>鳴門JCT</option>
+<option>松茂SIC</option>
+<option>徳島JCT</option>
+<option>藍住IC</option>
+<option>土成IC</option>
+<option>脇町IC</option>
+<option>美馬IC</option>
+<option>吉野川SIC</option>
+<option>井川池田IC</option>
+<option>川之江東JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島南部自動車道">
+
+<option>徳島沖洲IC</option>
+
+</optgroup>
+
+</select>
+
+<hr>
+
+<h2>区間③（必要な場合のみ入力）</h2>
+
+<label>路線</label>
+
+<select id="road3">
+
+<option value="">未使用</option>
+
+<option>高松自動車道</option>
+<option>高松自動車道坂出支線</option>
+<option>松山自動車道</option>
+<option>高知自動車道</option>
+<option>徳島自動車道</option>
+<option>徳島南部自動車道</option>
+
+</select>
+
+<label>方向</label>
+
+<select id="direction3">
+
+<option>上り線</option>
+<option>下り線</option>
+<option>上下線</option>
+
+</select>
+
+<label>起点IC</label>
+
+<select id="fromIC3">
+<optgroup label="高松・坂出支線">
+
+<option>鳴門JCT</option>
+<option>鳴門IC</option>
+<option>板野IC</option>
+<option>引田IC</option>
+<option>白鳥大内IC</option>
+<option>津田東IC</option>
+<option>津田寒川IC</option>
+<option>志度IC</option>
+<option>さぬき三木IC</option>
+<option>高松東IC</option>
+<option>高松中央IC</option>
+<option>高松檀紙IC</option>
+<option>高松西IC</option>
+<option>府中湖SIC</option>
+<option>坂出JCT</option>
+<option>坂出IC</option>
+<option>善通寺IC</option>
+<option>三豊鳥坂IC</option>
+<option>さぬき豊中IC</option>
+<option>観音寺SIC</option>
+<option>大野原IC</option>
+<option>川之江JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="松山自動車道">
+
+<option>川之江JCT</option>
+<option>三島川之江IC</option>
+<option>土居IC</option>
+<option>新居浜IC</option>
+<option>いよ西条IC</option>
+<option>いよ小松JCT</option>
+<option>川内IC</option>
+<option>松山IC</option>
+<option>伊予IC</option>
+<option>中山SIC</option>
+<option>内子五十崎IC</option>
+<option>大洲IC</option>
+<option>大洲北只IC</option>
+
+</optgroup>
+
+<optgroup label="今治小松自動車道">
+<option>いよ小松JCT</option>
+<option>いよ小松IC</option>
+<option>東予丹原IC</option>
+<option>今治湯ノ浦IC</option>
+
+</optgroup>
+
+<optgroup label="高知自動車道">
+
+<option>川之江JCT</option>
+<option>新宮IC</option>
+<option>大豊IC</option>
+<option>南国IC</option>
+<option>高知IC</option>
+<option>伊野IC</option>
+<option>土佐IC</option>
+<option>須崎東IC</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島自動車道">
+
+<option>鳴門JCT</option>
+<option>松茂SIC</option>
+<option>徳島JCT</option>
+<option>藍住IC</option>
+<option>土成IC</option>
+<option>脇町IC</option>
+<option>美馬IC</option>
+<option>吉野川SIC</option>
+<option>井川池田IC</option>
+<option>川之江東JCT</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島南部自動車道">
+
+<option>徳島沖洲IC</option>
+
+</optgroup>
+
+</select>
+
+<label>終点IC</label>
+
+<select id="toIC3">
+<optgroup label="高松・坂出支線">
+
+<option>鳴門JCT</option>
+<option>鳴門IC</option>
+<option>板野IC</option>
+<option>引田IC</option>
+<option>白鳥大内IC</option>
+<option>津田東IC</option>
+<option>津田寒川IC</option>
+<option>志度IC</option>
+<option>さぬき三木IC</option>
+<option>高松東IC</option>
+<option>高松中央IC</option>
+<option>高松檀紙IC</option>
+<option>高松西IC</option>
+<option>府中湖SIC</option>
+<option>坂出JCT</option>
+<option>坂出IC</option>
+<option>善通寺IC</option>
+<option>三豊鳥坂IC</option>
+<option>さぬき豊中IC</option>
+<option>観音寺SIC</option>
+<option>大野原IC</option>
+
+</optgroup>
+
+
+<optgroup label="松山自動車道">
+
+<option>川之江JCT</option>
+<option>三島川之江IC</option>
+<option>土居IC</option>
+<option>新居浜IC</option>
+<option>いよ西条IC</option>
+<option>いよ小松JCT</option>
+<option>川内IC</option>
+<option>松山IC</option>
+<option>伊予IC</option>
+<option>中山SIC</option>
+<option>内子五十崎IC</option>
+<option>大洲IC</option>
+<option>大洲北只IC</option>
+
+</optgroup>
+
+<optgroup label="今治小松自動車道">
+<option>いよ小松JCT</option>
+<option>いよ小松IC</option>
+<option>東予丹原IC</option>
+<option>今治湯ノ浦IC</option>
+
+</optgroup>
+
+<optgroup label="高知自動車道">
+
+<option>川之江JCT</option>
+<option>新宮IC</option>
+<option>大豊IC</option>
+<option>南国IC</option>
+<option>高知IC</option>
+<option>伊野IC</option>
+<option>土佐IC</option>
+<option>須崎東IC</option>
+
+</optgroup>
+
+
+
+<optgroup label="徳島自動車道">
+
+<option>鳴門JCT</option>
+<option>松茂SIC</option>
+<option>徳島JCT</option>
+<option>藍住IC</option>
+<option>土成IC</option>
+<option>脇町IC</option>
+<option>美馬IC</option>
+<option>吉野川SIC</option>
+<option>井川池田IC</option>
+<option>川之江東JCT</option>
+
+</optgroup>
+
+<optgroup label="徳島南部自動車道">
+
+<option>徳島沖洲IC</option>
+
+</optgroup>
+
+</select>
+
+<hr>
+
+<button onclick="createNightCommand()">
+
+放送文作成
+
+</button>
+
+<textarea id="nightText" readonly></textarea>
+
+<button onclick="playNightCommand()">
+
+🔊 音声再生
+
+</button>
+
+<button onclick="stopNightCommand()">
+
+⏹ 停止
+
+</button>
+
+<button onclick="location.href='index.html'">
+
+🏠 メインメニューへ戻る
+
+</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
