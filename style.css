@@ -38,17 +38,11 @@ h2{
 =========================*/
 
 .logo{
-
     display:block;
-
-    width:450px;
-
-    max-width:100%;
-
+    width:750px;
+    max-width:85%;
     height:auto;
-
-    margin:0 auto 20px auto;
-
+    margin:0 auto 15px auto;
 }
 
 /*=========================
@@ -189,8 +183,9 @@ button:hover{
     }
 
     .logo{
-        width:220px;
-        margin-bottom:20px;
+        width:320px;      /* スマホで少し大きく */
+        max-width:95%;
+        margin:0 auto 20px;
     }
 
 }
