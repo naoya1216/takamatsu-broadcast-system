@@ -112,31 +112,33 @@ button:hover{
     background:#003f80;      /* ←これも追加 */
 }
 
-/* 通常（青） */
+/* 通常（DeepSkyBlue） */
 .btn-blue{
-    background:#005bbb;
+    background:deepskyblue;
 }
 
 .btn-blue:hover{
-    background:#003f80;
+    background:#00BFFF;   /* DeepSkyBlue */
+    filter:brightness(90%);
 }
 
 /* 有事・通行止め（赤） */
 .btn-red{
-    background:#d32f2f;
+    background:tomato;
 }
 
 .btn-red:hover{
-    background:#b71c1c;
+    background:#e53935;
 }
 
-/* 夜間工事（オレンジ） */
+/* 夜間工事（サンディーブラウン） */
 .btn-orange{
-    background:#f57c00;
+    background:sandybrown;
 }
 
 .btn-orange:hover{
-    background:#e65100;
+    background:#F4A460;   /* SandyBrown */
+    filter:brightness(90%);
 }
 
 /* その他（グレー） */
@@ -147,7 +149,15 @@ button:hover{
 .btn-gray:hover{
     background:#555555;
 }
+/* 車両手配（SeaGreen） */
+.btn-green{
+    background:seagreen;
+}
 
+.btn-green:hover{
+    background:#2E8B57;   /* SeaGreen */
+    filter:brightness(90%);
+}
 /*=========================
  メニュー画面
 =========================*/
@@ -160,8 +170,13 @@ button:hover{
 }
 
 .tabs button{
-    height:80px;
-    font-size:28px;
+
+    height:85px;
+
+    font-size:34px;
+
+    font-weight:bold;
+
 }
 
 /*=========================
@@ -216,8 +231,8 @@ button:hover{
     }
 
     button{
-        font-size:20px;
-        height:55px;
+        font-size:24px;
+        height:60px;
     }
 
     .logo{
