@@ -183,9 +183,10 @@ button:hover{
     }
 
     .logo{
-        width:320px;      /* スマホで少し大きく */
-        max-width:95%;
-        margin:0 auto 20px;
-    }
+    width:100%;
+    max-width:420px;
+    height:auto;
+    margin:0 auto 20px auto;
+}
 
 }
