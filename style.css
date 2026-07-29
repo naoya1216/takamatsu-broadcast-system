@@ -237,9 +237,10 @@ button:hover{
     }
 
     .tabs button{
-        font-size:24px;
-        height:70px;       /* 60px → 70px */
-        margin-top:0;
+    font-size:28px;   /* 24px → 28px */
+    font-weight:bold;
+    height:70px;
+    margin-top:0;
     }
 
     .logo{
