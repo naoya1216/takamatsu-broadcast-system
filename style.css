@@ -230,16 +230,16 @@ button:hover{
         font-size:18px;
     }
 
-    /* ボタン間隔を狭く */
+    /* メニュー画面（スマホ） */
     .tabs{
-        gap:6px;          /* 20px→6px */
-        margin-top:15px;
+        gap:12px;          /* 6px → 12px */
+        margin-top:20px;   /* 15px → 20px */
     }
 
-    button{
+    .tabs button{
         font-size:24px;
         height:60px;
-        margin-top:0;     /* ←重要 */
+        margin-top:0;
     }
 
     .logo{
