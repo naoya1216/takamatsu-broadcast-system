@@ -204,24 +204,44 @@ document.getElementById("commandText").value = command;
 
 }
 
-
-
 function playCommand(){
 
-let text =
-document.getElementById("commandText").value;
-saveHistory("🚨 有事指令", text);
-speak(text);
+    let text =
+    document.getElementById("commandText").value;
+
+    saveHistory("🚨 有事指令", text);
+
+    let intro =
+"高松道路管制センターから各関係機関に現在の高速道路状況をお知らせします。";
+
+    // 冒頭と締めを除いた本文
+    let body = text
+        .replace(intro, "")
+        .replace("以上、高松道路管制センターがお知らせしました。", "")
+        .trim();
+
+    let speakText =
+`${intro}
+
+${intro}
+
+${body}
+
+繰り返します。
+
+${body}
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    speak(speakText);
 
 }
-
-
-
 function stopCommand(){
 
-stopSpeech();
+    stopSpeech();
 
 }
+
 
 //==================================================
 // 通行止め
@@ -363,7 +383,6 @@ ${reason}によるIC間通行止めを解除しました。
 //==================================================
 // 音声再生
 //==================================================
-
 function playClosureCommand(){
 
     let text =
@@ -372,31 +391,60 @@ function playClosureCommand(){
     let type =
     document.getElementById("closureType").value;
 
+    let reason =
+    document.getElementById("reason").value;
+
     let title = "";
+    let intro = "";
 
     switch(type){
 
         case "plan":
             title = "🚧 通行止め実施予定";
+            intro = `高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め実施予定についてお知らせします。`;
+       break;
+
+       case "start":
+            title = "🚧 通行止め実施";
+            intro = `高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め実施についてお知らせします。`;
         break;
 
-        case "start":
-            title = "🚧 通行止め実施";
-        break;
 
         case "releasePlan":
-            title = "🚧 通行止め解除予定";
-        break;
+    title = "🚧 通行止め解除予定";
+    intro = `高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め解除予定についてお知らせします。`;
+break;
 
         case "release":
-            title = "🚧 通行止め解除";
-        break;
+    title = "🚧 通行止め解除";
+    intro = `高松道路管制センターから各事務所及び各関係機関に、${reason}による通行止め解除についてお知らせします。`;
+break;
 
     }
 
     saveHistory(title, text);
 
-    speak(text);
+    // 本文のみ抽出
+    let body = text
+        .replace(intro, "")
+        .replace("以上、高松道路管制センターがお知らせしました。", "")
+        .trim();
+
+    // 読み上げ専用
+    let speakText =
+`${intro}
+
+${intro}
+
+${body}
+
+繰り返します。
+
+${body}
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    speak(speakText);
 
 }
 
@@ -405,6 +453,7 @@ function stopClosureCommand(){
     stopSpeech();
 
 }
+
 //==================================================
 // 了解の合図依頼
 //==================================================
@@ -431,7 +480,9 @@ function playAcknowledged(){
     speak(text);
 
 }
-
+//==============================
+// 夜間工事
+//==============================
 function createNightCommand(){
 
     let type = document.getElementById("nightType").value;
@@ -539,6 +590,7 @@ ${sectionText}
     document.getElementById("nightText").value = text;
 
 }
+
 function playNightCommand(){
 
     let text =
@@ -546,7 +598,52 @@ function playNightCommand(){
 
     saveHistory("🌙 夜間工事通行止め", text);
 
-    speak(text);
+    let type =
+    document.getElementById("nightType").value;
+
+    let intro = "";
+
+    switch(type){
+
+        case "plan":
+            intro = "高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め実施予定についてお知らせします。";
+        break;
+
+        case "start":
+            intro = "高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め実施についてお知らせします。";
+        break;
+
+        case "releasePlan":
+            intro = "高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め解除予定についてお知らせします。";
+        break;
+
+        case "release":
+            intro = "高松道路管制センターから各事務所及び各関係機関に、夜間工事通行止め解除についてお知らせします。";
+        break;
+
+    }
+
+    // 本文のみ抽出
+    let body = text
+        .replace(intro, "")
+        .replace("以上、高松道路管制センターがお知らせしました。", "")
+        .trim();
+
+    // 読み上げ専用
+    let speakText =
+`${intro}
+
+${intro}
+
+${body}
+
+繰り返します。
+
+${body}
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    speak(speakText);
 
 }
 
@@ -555,6 +652,7 @@ function stopNightCommand(){
     stopSpeech();
 
 }
+
 //==================================================
 // 未課金車両流入
 //==================================================
@@ -682,7 +780,7 @@ let text =
 
 ${vehicleInfo}${featureText}この車両が流出した際は、所定の処理を行ってください。
 
-以上、道路管制センターがお知らせしました。`;
+以上、高松道路管制センターがお知らせしました。`;
 
 document.getElementById("unpaidText").value=text;
 
@@ -690,18 +788,37 @@ document.getElementById("unpaidText").value=text;
 //==================================================
 // 未課金車両流入（続き）
 //==================================================
-
- function playUnpaidCommand(){
+function playUnpaidCommand(){
 
     let text =
     document.getElementById("unpaidText").value;
 
     saveHistory("💴 未課金車両流入", text);
 
-    // 読み上げ用テキスト
-    let speechText = text;
+    const intro =
+    "高松道路管制センターから各料金所に未課金車両の流入についてお知らせします。";
 
-    // 「数字の555」→「数字のご、ご、ご」
+    // 本文のみ抽出
+    let body = text
+        .replace(intro, "")
+        .replace("以上、高松道路管制センターがお知らせしました。", "")
+        .trim();
+
+    // 読み上げ専用
+    let speechText =
+`${intro}
+
+${intro}
+
+${body}
+
+繰り返します。
+
+${body}
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    // 「数字の555」→「数字の ご、ご、ご」
     speechText = speechText.replace(
         /数字の([0-9]+)/g,
         function(match, num){
@@ -709,17 +826,18 @@ document.getElementById("unpaidText").value=text;
         }
     );
 
-    // 後半数字（1～4桁）を変換
-speechText = speechText.replace(
-    /(^|\n)([0-9]{1,4})(?=\s|。|$)/gm,
-    function(match, p1, num){
-        return p1 + readNumber(num);
-    }
-);
+    // 単独の数字（1～4桁）を変換
+    speechText = speechText.replace(
+        /(^|\n)([0-9]{1,4})(?=\s|。|$)/gm,
+        function(match, p1, num){
+            return p1 + readNumber(num);
+        }
+    );
 
     speak(speechText);
 
 }
+ 
 function readNumber(number){
 
     const map = {
@@ -828,7 +946,7 @@ function createOutflowCommand(){
     let text =
 `高松道路管制センターから各料金所に未課金車両の流出についてお知らせします。
 
-先ほど一斉の${inToll}${inLane}を未課金で流入した、
+先ほど一斉の、${inToll}${inLane}を未課金で流入した、
 
 車名${name}。
 
@@ -848,10 +966,30 @@ function playOutflowCommand(){
 
     saveHistory("💳 未課金車両流出", text);
 
-    // 読み上げ用
-    let speechText = text;
+    const intro =
+    "高松道路管制センターから各料金所に未課金車両の流出についてお知らせします。";
 
-    // 「数字の555」→「数字のご、ご、ご」
+    // 本文のみ抽出
+    let body = text
+        .replace(intro, "")
+        .replace("以上、高松道路管制センターがお知らせしました。", "")
+        .trim();
+
+    // 読み上げ専用
+    let speechText =
+`${intro}
+
+${intro}
+
+${body}
+
+繰り返します。
+
+${body}
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    // 「数字の555」→「数字の ご、ご、ご」
     speechText = speechText.replace(
         /数字の([0-9]+)/g,
         function(match, num){
