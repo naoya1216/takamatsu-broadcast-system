@@ -189,7 +189,7 @@ document.getElementById("event").value;
 
 const command =
 
-`高松道路管制センターから各関係機関に現在の高速道路状況をお知らせします。
+`高松道路管制センターから各事務所及び各関係機関に現在の高速道路状況をお知らせします。
 
 現在、${road}、${direction}、${fromIC}から${toIC}間、${kp}キロポスト付近で${event}が発生しています。
 
@@ -212,7 +212,7 @@ function playCommand(){
     saveHistory("🚨 有事指令", text);
 
     let intro =
-"高松道路管制センターから各関係機関に現在の高速道路状況をお知らせします。";
+"高松道路管制センターから各事務所及び各関係機関に現在の高速道路状況をお知らせします。";
 
     // 冒頭と締めを除いた本文
     let body = text
