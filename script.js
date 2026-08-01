@@ -34,6 +34,10 @@ function speak(text){
     text = text.replace(/三豊鳥坂インターチェンジ/g,"みとよ とっさか インターチェンジ")
     // ○時00分 → ○時ちょうど
     text = text.replace(/(\d{1,2})時0?0分/g, "$1時ちょうど");
+    // 車両トン数の読み方
+    text = text.replace(/(\d+)ｔ/g, "$1トン");
+    text = text.replace(/(\d+)t/g, "$1トン");
+    text = text.replace(/(\d+)T/g, "$1トン");
 //=====================================
 // IC・JCT・SIC 正式読み方
 //=====================================
