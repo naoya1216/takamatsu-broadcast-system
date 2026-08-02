@@ -10,9 +10,10 @@
 
 function speak(text){
 
-    if(text===""){
+    // 空白や改行だけの場合も再生しない
+    if(!text || text.trim() === ""){
 
-        alert("放送文を作成してください。");
+        alert("先に『放送文作成』を押してください。");
         return;
 
     }
@@ -213,6 +214,12 @@ function playCommand(){
     let text =
     document.getElementById("commandText").value;
 
+    // 放送文が未作成なら再生しない
+    if(!text || text.trim() === ""){
+        alert("先に『放送文作成』を押してください。");
+        return;
+    }
+
     saveHistory("🚨 有事指令", text);
 
     let intro =
@@ -391,6 +398,13 @@ function playClosureCommand(){
 
     let text =
     document.getElementById("closureText").value;
+
+       // 放送文が未作成なら再生しない
+    if(!text || text.trim() === ""){
+        alert("先に『放送文作成』を押してください。");
+        return;
+    }
+
 
     let type =
     document.getElementById("closureType").value;
@@ -600,6 +614,13 @@ function playNightCommand(){
     let text =
     document.getElementById("nightText").value;
 
+       // 放送文が未作成なら再生しない
+    if(!text || text.trim() === ""){
+        alert("先に『放送文作成』を押してください。");
+        return;
+    }
+
+
     saveHistory("🌙 夜間工事通行止め", text);
 
     let type =
@@ -797,6 +818,13 @@ function playUnpaidCommand(){
     let text =
     document.getElementById("unpaidText").value;
 
+       // 放送文が未作成なら再生しない
+    if(!text || text.trim() === ""){
+        alert("先に『放送文作成』を押してください。");
+        return;
+    }
+
+
     saveHistory("💴 未課金車両流入", text);
 
     const intro =
@@ -967,6 +995,13 @@ ${plateInfo}この車両は、${exitIC}を${outType}で流出しました。
 function playOutflowCommand(){
 
     let text = document.getElementById("outText").value;
+
+       // 放送文が未作成なら再生しない
+    if(!text || text.trim() === ""){
+        alert("先に『放送文作成』を押してください。");
+        return;
+    }
+
 
     saveHistory("💳 未課金車両流出", text);
 
