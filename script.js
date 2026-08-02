@@ -206,6 +206,7 @@ const command =
 
 
 document.getElementById("commandText").value = command;
+document.getElementById("playButton").disabled = false;
 
 }
 
@@ -388,6 +389,7 @@ ${reason}によるIC間通行止めを解除しました。
     }
 
     document.getElementById("closureText").value = text;
+    ocument.getElementById("playClosureButton").disabled = false;
 
 }
 
@@ -606,6 +608,7 @@ ${sectionText}
     }
 
     document.getElementById("nightText").value = text;
+    document.getElementById("playNightButton").disabled = false;
 
 }
 
@@ -808,6 +811,7 @@ ${vehicleInfo}${featureText}この車両が流出した際は、所定の処理�
 以上、高松道路管制センターがお知らせしました。`;
 
 document.getElementById("unpaidText").value=text;
+document.getElementById("playUnpaidButton").disabled = false;
 
 }
 //==================================================
@@ -989,6 +993,7 @@ ${plateInfo}この車両は、${exitIC}を${outType}で流出しました。
 以上、高松道路管制センターがお知らせしました。`;
 
     document.getElementById("outText").value = text;
+    document.getElementById("playOutflowButton").disabled = false;
 
 }
 
@@ -1267,4 +1272,23 @@ function loadVoices(){
 }
 
 speechSynthesis.onvoiceschanged = loadVoices;
-window.onload = loadVoices;
+
+window.onload = function(){
+
+    loadVoices();
+
+    ["playButton",
+     "playClosureButton",
+     "playNightButton",
+     "playUnpaidButton",
+     "playOutflowButton"].forEach(id => {
+
+        const btn = document.getElementById(id);
+
+        if(btn){
+            btn.disabled = true;
+        }
+
+    });
+
+}
