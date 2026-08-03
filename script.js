@@ -700,7 +700,7 @@ let type =
 document.getElementById("type").value;
 
 let name =
-document.getElementById("name").value;
+document.getElementById("carName").value;
 
 let color =
 document.getElementById("color").value;
@@ -890,12 +890,178 @@ function readNumber(number){
         .map(n => map[n])
         .join("、");
 }
+function saveUnpaidVehicle(){
+
+    const vehicle = {
+
+        id: Date.now(),   // 管理番号
+
+        time: document.getElementById("hour").value + ":" +
+      document.getElementById("minute").value,
+
+        toll: document.getElementById("toll").value,
+
+        lane: document.getElementById("lane").value,
+
+        carName: document.getElementById("carName").value,
+
+        kanji: document.getElementById("kanji").value,
+
+        number1: document.getElementById("number1").value,
+
+        kana: document.getElementById("kana").value,
+
+        number2: document.getElementById("number2").value,
+
+        status: "流入中"
+
+    };
+
+    let list = JSON.parse(localStorage.getItem("unpaidVehicles") || "[]");
+
+    list.push(vehicle);
+
+    localStorage.setItem("unpaidVehicles", JSON.stringify(list));
+
+    alert("未課金車両を登録しました。");
+
+}
+function loadUnpaidVehicleList(){
+
+    let list = JSON.parse(localStorage.getItem("unpaidVehicles") || "[]");
+
+    let html = "";
+
+    if(list.length===0){
+
+        html="<h2>現在登録されている車両はありません。</h2>";
+
+    }else{
+
+        list.forEach((v,index)=>{
+
+            if(v.status!="流入中") return;
+
+            html += `
+<div class="vehicle-card">
+
+<h2>車両 ${index+1}</h2>
+
+<p><b>流入時刻</b><br>${v.time}</p>
+
+<p><b>料金所</b><br>${v.toll}</p>
+
+<p><b>レーン</b><br>${v.lane}</p>
+
+<p><b>車名</b><br>${v.carName}</p>
+
+<p><b>車番</b><br>
+${v.kanji}
+${v.number1}
+${v.kana}
+${v.number2}
+</p>
+
+<button onclick="selectOutflow(${v.id})">
+🚓 この車両を流出処理
+</button>
+
+<button onclick="deleteVehicle(${v.id})">
+🗑 削除
+</button>
+
+</div>
+
+<hr>
+`;
+
+        });
+
+    }
+
+    document.getElementById("vehicleList").innerHTML = html;
+
+}
+function selectOutflow(id){
+
+    let list = JSON.parse(localStorage.getItem("unpaidVehicles") || "[]");
+
+    let vehicle = list.find(v => v.id === id);
+
+    localStorage.setItem(
+        "selectedVehicle",
+        JSON.stringify(vehicle)
+    );
+
+    location.href = "unpaid_out.html";
+
+}
+function loadSelectedVehicle(){
+
+    let vehicle =
+    JSON.parse(localStorage.getItem("selectedVehicle"));
+
+    if(!vehicle) return;
+
+    document.getElementById("inToll").value = vehicle.toll;
+
+    document.getElementById("inLane").value = vehicle.lane;
+
+    document.getElementById("carName").value = vehicle.carName;
+
+    document.getElementById("kanji").value = vehicle.kanji;
+
+    document.getElementById("number1").value = vehicle.number1;
+
+    document.getElementById("kana").value = vehicle.kana;
+
+    document.getElementById("number2").value = vehicle.number2;
+
+    //=========================
+    // 流入時刻を自動入力
+    //=========================
+
+    if(vehicle.time){
+
+        let t = vehicle.time.split(":");
+
+        if(t.length === 2){
+
+            document.getElementById("hour").value = t[0];
+            document.getElementById("minute").value = t[1];
+
+        }
+
+    }
+
+}
+function deleteVehicle(id){
+
+    if(!confirm("この車両を削除しますか？")){
+        return;
+    }
+
+    let list =
+    JSON.parse(localStorage.getItem("unpaidVehicles") || "[]");
+
+    list = list.filter(v => v.id !== id);
+
+    localStorage.setItem(
+        "unpaidVehicles",
+        JSON.stringify(list)
+    );
+
+    loadUnpaidVehicleList();
+
+}
 //==================================================
 // 未課金車両流出
 //==================================================
 
 function createOutflowCommand(){
 
+    let hour = document.getElementById("hour").value;
+    let minute = document.getElementById("minute").value;
     let inToll = document.getElementById("inToll").value;
     let inLane = document.getElementById("inLane").value;
 
@@ -975,20 +1141,57 @@ function createOutflowCommand(){
     // 放送文
     //=========================
 
-    let text =
-`高松道路管制センターから各料金所に未課金車両の流出についてお知らせします。
+let text =
+`高松道路管制センターから各料金所に、未課金車両流出についてお知らせします。
 
-先ほど一斉の、${inToll}${inLane}を未課金で流入した、
+${hour}時${minute}分頃、
+
+${inToll}${inLane}を未課金で流入した、
 
 車名${name}。
 
-${plateInfo}この車両は、${exitIC}を${outType}で流出しました。
+${plateInfo}
 
-よってこの件は解除とします。
+この車両は、
+
+${exitIC}を${outType}で流出しました。
+
+よって、この件は解除とします。
 
 以上、高松道路管制センターがお知らせしました。`;
 
     document.getElementById("outText").value = text;
+
+//=========================
+// 登録車両を解除済に変更
+//=========================
+
+let vehicle =
+JSON.parse(localStorage.getItem("selectedVehicle"));
+
+if(vehicle){
+
+    let list =
+    JSON.parse(localStorage.getItem("unpaidVehicles") || "[]");
+
+    let index =
+    list.findIndex(v => v.id === vehicle.id);
+
+    if(index >= 0){
+
+        list[index].status = "解除済";
+
+        list[index].releaseTime =
+        new Date().toLocaleString("ja-JP");
+
+        localStorage.setItem(
+            "unpaidVehicles",
+            JSON.stringify(list)
+        );
+
+    }
+
+}
 
 }
 

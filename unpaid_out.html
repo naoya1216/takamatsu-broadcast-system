@@ -16,6 +16,16 @@
 
 <h1>💳 未課金車両流出</h1>
 
+<label>流入時刻</label>
+
+<div class="inline-group">
+
+    <input id="hour" type="number" min="0" max="23" placeholder="時">
+
+    <input id="minute" type="number" min="0" max="59" placeholder="分">
+
+</div>
+
 <label>流入料金所</label>
 
 <div class="inline-group">
@@ -290,6 +300,12 @@ placeholder="例：トヨタ プリウス">
 </div>
 
 <script src="script.js"></script>
+
+<script>
+
+loadSelectedVehicle();
+
+</script>
 
 </body>
 </html>

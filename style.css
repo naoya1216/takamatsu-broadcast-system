@@ -251,3 +251,14 @@ button:hover{
     }
 
 }
+.vehicle-card{
+
+    background:#f8f8f8;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+}
