@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>トンネル進入禁止</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚧 トンネル進入禁止</h1>
+
+<label>種別</label>
+
+<select id="mode">
+    <option>実施</option>
+    <option>解除</option>
+</select>
+
+<label>理由</label>
+
+<select id="reason">
+    <option>事故</option>
+    <option>火災</option>
+    <option>故障車</option>
+    <option>落下物</option>
+    <option>車両火災</option>
+    <option>その他</option>
+</select>
+
+<label>実施・解除時刻</label>
+
+<div class="inline-group">
+
+<input id="hour" type="number" min="0" max="23" placeholder="時">
+
+<input id="minute" type="number" min="0" max="59" placeholder="分">
+
+</div>
+
+<label>路線</label>
+
+<select id="road" onchange="updateIC()">
+
+<option>高松自動車道</option>
+<option>高松自動車道坂出支線</option>
+<option>松山自動車道</option>
+<option>高知自動車道</option>
+<option>徳島自動車道</option>
+<option>徳島南部自動車道</option>
+<option>今治小松自動車道</option>
+
+</select>
+
+<label>上下線</label>
+
+<select id="direction" onchange="updateTunnelList()">
+
+<option>上り線</option>
+<option>下り線</option>
+
+</select>
+
+<label>起点IC</label>
+
+<select id="fromIC" onchange="updateTunnelList()">
+</select>
+
+<label>終点IC</label>
+
+<select id="toIC" onchange="updateTunnelList()">
+</select>
+
+<label>トンネル名</label>
+
+<select id="tunnel">
+
+<option value="">選択してください</option>
+
+</select>
+
+<button onclick="createTunnelCommand()">
+放送文作成
+</button>
+
+<textarea id="tunnelText" readonly></textarea>
+
+<button onclick="playTunnelCommand()">
+🔊 音声再生
+</button>
+
+<button onclick="stopTunnelCommand()">
+⏹ 停止
+</button>
+
+<button onclick="location.href='index.html'">
+🏠 メインメニューへ戻る
+</button>
+
+</div>
+
+<!-- データ -->
+<script src="roads.js"></script>
+<script src="tunnels.js"></script>
+
+<!-- 処理 -->
+<script src="script.js"></script>
+
+<script>
+
+// 初期表示
+updateIC();
+
+</script>
+
+</body>
+
+</html>

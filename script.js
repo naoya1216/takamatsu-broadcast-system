@@ -498,6 +498,208 @@ function playAcknowledged(){
     speak(text);
 
 }
+
+//==================================================
+// トンネル進入禁止
+//==================================================
+
+function createTunnelCommand(){
+
+    let mode =
+    document.getElementById("mode").value;
+
+    let reason =
+    document.getElementById("reason").value;
+
+    let hour =
+    document.getElementById("hour").value;
+
+    let minute =
+    document.getElementById("minute").value;
+
+    let road =
+    document.getElementById("road").value;
+
+    let direction =
+    document.getElementById("direction").value;
+
+    let fromIC =
+    document.getElementById("fromIC").value;
+
+    let toIC =
+    document.getElementById("toIC").value;
+
+    let tunnel =
+    document.getElementById("tunnel").value;
+
+    let intro =
+`高松道路管制センターから各事務所及び各関係機関に、${reason}によるトンネル進入禁止、${mode}についてお知らせします。`;
+
+    let body =
+`${hour}時${minute}分をもって、
+
+${road}、
+
+${direction}、
+
+${fromIC}から${toIC}間の、
+
+${tunnel}は、
+
+${reason}による、
+
+トンネル進入禁止が、${mode}となりました。`;
+
+    // 画面表示は1回だけ
+    let text =
+`${intro}
+
+${body}
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    document.getElementById("tunnelText").value = text;
+
+}
+
+function playTunnelCommand(){
+
+    let text =
+    document.getElementById("tunnelText").value;
+
+    // 放送文未作成なら再生しない
+    if(!text || text.trim() === ""){
+
+        alert("先に『放送文作成』を押してください。");
+
+        return;
+
+    }
+
+    saveHistory("🚧 トンネル進入禁止", text);
+
+    let intro =
+`高松道路管制センターから各事務所及び各関係機関に、${document.getElementById("reason").value}によるトンネル進入禁止、${document.getElementById("mode").value}についてお知らせします。`;
+
+    let body = text
+        .replace(intro, "")
+        .replace("以上、高松道路管制センターがお知らせしました。", "")
+        .trim();
+
+    let speakText =
+`${intro}
+
+${intro}
+
+${body}
+
+繰り返します。
+
+${body}
+
+以上、高松道路管制センターがお知らせしました。`;
+
+    speak(speakText);
+
+}
+
+function stopTunnelCommand(){
+
+    stopSpeech();
+
+}
+//==================================================
+// IC一覧更新
+//==================================================
+
+function updateIC(){
+
+    const road =
+    document.getElementById("road").value;
+
+    const fromSelect =
+    document.getElementById("fromIC");
+
+    const toSelect =
+    document.getElementById("toIC");
+
+    // 初期化
+    fromSelect.innerHTML = "";
+    toSelect.innerHTML = "";
+
+    // 路線データ取得
+    const icList = roadData[road];
+
+    if(!icList) return;
+
+    icList.forEach(ic =>{
+
+        let option1 =
+        document.createElement("option");
+
+        option1.value = ic;
+        option1.textContent = ic;
+
+        fromSelect.appendChild(option1);
+
+        let option2 =
+        document.createElement("option");
+
+        option2.value = ic;
+        option2.textContent = ic;
+
+        toSelect.appendChild(option2);
+
+    });
+
+    // ICが変わったのでトンネル一覧も更新
+    updateTunnelList();
+
+}
+//==================================================
+// トンネル一覧更新
+//==================================================
+
+function updateTunnelList(){
+
+    const road = document.getElementById("road").value;
+    const direction = document.getElementById("direction").value;
+    const fromIC = document.getElementById("fromIC").value;
+    const toIC = document.getElementById("toIC").value;
+
+    const tunnelSelect = document.getElementById("tunnel");
+
+    tunnelSelect.innerHTML = "";
+
+    const list = tunnelData.filter(t =>
+        t.road === road &&
+        t.direction === direction &&
+        t.fromIC === fromIC &&
+        t.toIC === toIC
+    );
+
+    if(list.length === 0){
+
+        const option = document.createElement("option");
+        option.textContent = "該当なし";
+        option.value = "";
+        tunnelSelect.appendChild(option);
+        return;
+
+    }
+
+    list.forEach(t =>{
+
+        const option = document.createElement("option");
+
+        option.value = t.tunnel;
+        option.textContent = t.tunnel;
+
+        tunnelSelect.appendChild(option);
+
+    });
+
+}
 //==============================
 // 夜間工事
 //==============================
@@ -873,7 +1075,7 @@ ${body}
 function readNumber(number){
 
     const map = {
-        "0":"ゼロ",
+        "0":"まる",
         "1":"いち",
         "2":"に",
         "3":"さん",
@@ -1142,7 +1344,7 @@ function createOutflowCommand(){
     //=========================
 
 let text =
-`高松道路管制センターから各料金所に、未課金車両流出についてお知らせします。
+`高松道路管制センターから各料金所に、未課金車両の流出についてお知らせします。
 
 ${hour}時${minute}分頃、
 
@@ -1193,7 +1395,11 @@ if(vehicle){
 
 }
 
+// 選択中の車両情報を削除
+    localStorage.removeItem("selectedVehicle");
+
 }
+
 
 function playOutflowCommand(){
 
@@ -1209,7 +1415,7 @@ function playOutflowCommand(){
     saveHistory("💳 未課金車両流出", text);
 
     const intro =
-    "高松道路管制センターから各料金所に未課金車両の流出についてお知らせします。";
+    "高松道路管制センターから各料金所に、未課金車両の流出についてお知らせします。";
 
     // 本文のみ抽出
     let body = text
@@ -1253,7 +1459,7 @@ ${body}
 function readNumber(number){
 
     const map = {
-        "0":"ゼロ",
+        "0":"まる",
         "1":"いち",
         "2":"に",
         "3":"さん",
