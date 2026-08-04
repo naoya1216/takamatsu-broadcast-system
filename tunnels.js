@@ -7,8 +7,8 @@ const tunnelData = [
 {
     road:"高松自動車道",
     direction:"上り線",
-    fromIC:"鳴門IC",
-    toIC:"板野IC",
+    fromIC:"板野IC",
+    toIC:"鳴門JCT",
     tunnel:"北唱谷トンネル",
     reading:"きたとなえだにトンネル"
 },
@@ -16,8 +16,8 @@ const tunnelData = [
 {
     road:"高松自動車道",
     direction:"下り線",
-    fromIC:"板野IC",
-    toIC:"鳴門IC",
+    fromIC:"鳴門JCT",
+    toIC:"板野IC",
     tunnel:"北唱谷トンネル",
     reading:"きたとなえだにトンネル"
 },

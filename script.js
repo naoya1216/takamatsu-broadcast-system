@@ -532,6 +532,7 @@ function createTunnelCommand(){
     let tunnel =
     document.getElementById("tunnel").value;
 
+   
     let intro =
 `高松道路管制センターから各事務所及び各関係機関に、${reason}によるトンネル進入禁止、${mode}についてお知らせします。`;
 
@@ -599,13 +600,31 @@ ${body}
 
 以上、高松道路管制センターがお知らせしました。`;
 
-    speak(speakText);
+    speak(applyTunnelReadings(speakText));
 
 }
 
 function stopTunnelCommand(){
 
     stopSpeech();
+
+}
+//==================================================
+// トンネル読み方補正
+//==================================================
+
+function applyTunnelReadings(text){
+
+    tunnelData.forEach(t =>{
+
+        text = text.replaceAll(
+            t.tunnel,
+            t.reading
+        );
+
+    });
+
+    return text;
 
 }
 //==================================================
@@ -694,6 +713,7 @@ function updateTunnelList(){
 
         option.value = t.tunnel;
         option.textContent = t.tunnel;
+        
 
         tunnelSelect.appendChild(option);
 
