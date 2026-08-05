@@ -29,8 +29,8 @@
 
 <select id="reason">
     <option>事故</option>
-    <option>火災</option>
     <option>故障車</option>
+    <option>逆走</option>
     <option>落下物</option>
     <option>車両火災</option>
     <option>その他</option>
@@ -51,7 +51,6 @@
 <select id="road" onchange="updateIC()">
 
 <option>高松自動車道</option>
-<option>高松自動車道坂出支線</option>
 <option>松山自動車道</option>
 <option>高知自動車道</option>
 <option>徳島自動車道</option>
@@ -66,12 +65,13 @@
 
 <option>上り線</option>
 <option>下り線</option>
+<option>上下線</option>
 
 </select>
 
 <label>起点IC</label>
 
-<select id="fromIC" onchange="updateTunnelList()">
+<select id="fromIC" onchange="updateToIC()">
 </select>
 
 <label>終点IC</label>

@@ -670,6 +670,8 @@ function updateIC(){
         toSelect.appendChild(option2);
 
     });
+    // ←ここに追加
+    updateToIC();
 
     // ICが変わったのでトンネル一覧も更新
     updateTunnelList();
@@ -678,7 +680,6 @@ function updateIC(){
 //==================================================
 // トンネル一覧更新
 //==================================================
-
 function updateTunnelList(){
 
     const road = document.getElementById("road").value;
@@ -690,12 +691,31 @@ function updateTunnelList(){
 
     tunnelSelect.innerHTML = "";
 
-    const list = tunnelData.filter(t =>
-        t.road === road &&
-        t.direction === direction &&
-        t.fromIC === fromIC &&
-        t.toIC === toIC
-    );
+    const list = tunnelData.filter(t => {
+
+        // 路線が違う
+        if(t.road !== road){
+            return false;
+        }
+
+        // 上下線
+        if(direction === "上下線"){
+
+            return (
+                (t.fromIC === fromIC && t.toIC === toIC) ||
+                (t.fromIC === toIC && t.toIC === fromIC)
+            );
+
+        }
+
+        // 上り・下り
+        return (
+            t.direction === direction &&
+            t.fromIC === fromIC &&
+            t.toIC === toIC
+        );
+
+    });
 
     if(list.length === 0){
 
@@ -713,11 +733,53 @@ function updateTunnelList(){
 
         option.value = t.tunnel;
         option.textContent = t.tunnel;
-        
 
         tunnelSelect.appendChild(option);
 
     });
+
+}
+//==================================================
+// 終点IC自動設定
+//==================================================
+
+function updateToIC(){
+
+    const road = document.getElementById("road").value;
+    const direction = document.getElementById("direction").value;
+    const fromIC = document.getElementById("fromIC").value;
+
+    const toSelect = document.getElementById("toIC");
+
+    const icList = roadData[road];
+
+    if(!icList) return;
+
+    const index = icList.indexOf(fromIC);
+
+    if(index === -1) return;
+
+    // 上り線 → 一つ上のIC
+    if(direction === "上り線"){
+
+        if(index > 0){
+            toSelect.value = icList[index - 1];
+        }
+
+    }
+
+    // 下り線・上下線
+else{
+
+    if(index < icList.length - 1){
+
+        toSelect.value = icList[index + 1];
+
+    }
+
+}
+
+updateTunnelList();
 
 }
 //==============================

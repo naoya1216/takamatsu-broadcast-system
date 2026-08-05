@@ -56,8 +56,6 @@ const roadData = {
         "新居浜IC",
         "いよ西条IC",
         "いよ小松JCT",
-        "いよ小松IC",
-        "東予丹原IC",
         "川内IC",
         "松山IC",
         "伊予IC",
@@ -102,7 +100,8 @@ const roadData = {
         "脇町IC",
         "美馬IC",
         "吉野川SIC",
-        "井川池田IC"
+        "井川池田IC",
+        "川之江東JCT"
 
     ],
 
